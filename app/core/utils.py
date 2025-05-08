@@ -48,12 +48,10 @@ class Utils:
     def write_to_json(filepath: str, data: dict, debug=False) -> bool:
         """Перезаписываем JSON-файл с новыми данными."""
         if not data:
-            log.error('empty data passed')
-            return False
+            log.warning('empty data will be writing')
 
         if debug:
             log.debug(data)
-
 
         try:
             json_data = json.dumps(data, indent=2, ensure_ascii=False)
@@ -75,8 +73,7 @@ class Utils:
     def update_to_json(filepath:str, data:dict) -> bool:
         exist_data = Utils.read_from_json(filepath)
         if not exist_data:
-            log.error('no current data for file %r', filepath)
-            return False
+            log.warning('no current data for file %r', filepath)
 
         try:
             Utils.deep_update(exist_data, data)
